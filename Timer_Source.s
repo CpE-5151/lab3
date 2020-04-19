@@ -268,9 +268,36 @@ TIMER2_INIT
 	STR R1, [R0, #TIM_CR1]
 	POP {R14}
 	BX R14
-	
 
-	
+; STEP #2
+;***************************************************************************************
+;      void TIMER2_INTERRUPT_ENABLE(void);
+;      enable TIM2_CC1 interrupt
+;**************************************************************************************
+  EXPORT TIMER2_INTERRUPT_ENABLE
+
+TIMER2_INTERRUPT_ENABLE
+  ;2a
+  PUSH {R14,R0,R1}
+
+  ;2b
+  LDR R0, =TIM2_BASE
+
+  ;2c
+  MOV R1, #0
+  STR R1, [R0, #TIM_SR]   ; clear all pending interrupts
+
+  ;2d
+  LDR R1, [R0, #TIM_DIER]
+  ORR R1, #(1<<1)         ; set TIM_DIER CC1IE bit to enable interrupt
+  STR R1, [R0, #TIM_DIER]
+
+  ;2e
+  POP {R14,R0,R1}
+
+  ;2f
+  BX R14
+
 
 	END
 		
