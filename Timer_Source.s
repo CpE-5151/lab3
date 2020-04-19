@@ -286,7 +286,7 @@ TIMER2_ENABLE_CC1_INTERRUPT
   STR R1, [R0, #TIM_SR]   ; clear all pending interrupts
   ;2d
   LDR R1, [R0, #TIM_DIER]
-  ORR R1, #(1<<1)         ; set TIM_DIER CC1IE bit to enable interrupt
+  ORR R1, R1, #(1<<1)     ; set TIM_DIER CC1IE bit to enable interrupt
   STR R1, [R0, #TIM_DIER]
   ;2e
   POP {R14,R0,R1}
@@ -307,7 +307,7 @@ TIMER2_DISABLE_CC1_INTERRUPT
   LDR R0, =TIM2_BASE
   ;3c
   LDR R1, [R0, #TIM_DIER]
-  BIC R1, #(1<<1)         ; clear TIM_DIER CC1IE bit to disable interrupt
+  BIC R1, R1, #(1<<1)     ; clear TIM_DIER CC1IE bit to disable interrupt
   STR R1, [R0, #TIM_DIER]
   ;3d
   POP {R14,R0,R1}
@@ -332,6 +332,43 @@ READ_MEASUREMENT
   POP {R14,R1}
   ;4e
   BX R14  ; return TIM_CCR1 value in R0
+
+; STEP #5
+;***************************************************************************************
+;      void START_MEASUREMENT(void);
+;      reset and trigger timers for a distance measurement
+;**************************************************************************************
+  EXPORT START_MEASUREMENT
+
+START_MEASUREMENT
+  ;5a
+  PUSH {R14,R0,R1}
+  
+  ;5b
+  LDR R0, =TIM4_BASE
+  ;5c
+  LDR R1, [R0, #TIM_EGR]
+  ORR R1, R1, #1          ; set UG bit to reset TIM4
+  STR R1, [R0, #TIM_EGR]
+
+  ;5d
+  LDR R0, =TIM5_BASE
+  ;5e
+  LDR R1, [R0, #TIM_EGR]
+  ORR R1, R1, #1          ; set UG bit to reset TIM5
+  STR R1, [R0, #TIM_EGR]
+
+  ;5f
+  LDR R0, =TIM3_BASE
+  ;5g
+  LDR R1, [R0, #TIM_EGR]
+  ORR R1, R1, #1          ; set UG bit to reset TIM3
+  STR R1, [R0, #TIM_EGR]
+
+  ;5h
+  POP {R14,R0,R1}
+  ;5i
+  BX R14
 
 
   END
