@@ -392,6 +392,11 @@
               <FileType>2</FileType>
               <FilePath>.\Timer_Source.s</FilePath>
             </File>
+            <File>
+              <FileName>Timer_IRQHandler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Timer_IRQHandler.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

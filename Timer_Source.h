@@ -16,6 +16,7 @@
 
 #include <stdint.h>
 
+/* assembly functions */
 void TIMER2_INIT(void);
 void TIMER3_INIT(void);
 void TIMER4_INIT(void);
@@ -24,5 +25,8 @@ void TIMER2_ENABLE_CC1_INTERRUPT(void);
 void TIMER2_DISABLE_CC1_INTERRUPT(void);
 void START_MEASUREMENT(void);
 uint32_t READ_MEASUREMENT(void);
+
+/* C functions */
+void TIM2_IRQHandler(void);
 
 #endif /* __TIMER_SOURCE_H */
