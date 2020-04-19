@@ -1,0 +1,4 @@
+load STM32L4R5ZITx 
+project name STCubeGenerated 
+project toolchain "MDK-ARM V5" 
+project path "D:\CpE5151\Projects\Exp3_Example\RTE\Device\STM32L4R5ZITx\" 
