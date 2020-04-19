@@ -298,6 +298,31 @@ TIMER2_INTERRUPT_ENABLE
   ;2f
   BX R14
 
+; STEP #3
+;***************************************************************************************
+;      void TIMER2_INTERRUPT_DISABLE(void);
+;      disable TIM2_CC1 interrupt
+;**************************************************************************************
+  EXPORT TIMER2_INTERRUPT_DISABLE
+
+TIMER2_INTERRUPT_DISABLE
+  ;3a
+  PUSH {R14,R0,R1}
+
+  ;3b
+  LDR R0, =TIM2_BASE
+
+  ;3c
+  LDR R1, [R0, #TIM_DIER]
+  BIC R1, #(1<<1)         ; clear TIM_DIER CC1IE bit to disable interrupt
+  STR R1, [R0, #TIM_DIER]
+
+  ;3d
+  POP {R14,R0,R1}
+
+  ;3e
+  BX R14
+
 
 	END
 		
