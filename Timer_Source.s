@@ -1,11 +1,8 @@
 ;********************************************************************************************
-;       timer_source.s
-;       Timer Assembly Code for experiment #2
+;       Timer_Source.s
+;       Timer Assembly Code for experiment #3
 ;
-;       Project Team Members: Roger Younger
-;
-;
-;       Version 1.0      Mar. 5, 2020
+;       Project Team Members: Albert Perlman
 ;
 ;********************************************************************************************
 

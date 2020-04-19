@@ -4,9 +4,7 @@
   *   Founction prototypes for the GPIO_control.s source code
   *                   
   ******************************************************************************
-  *   Project Team Members: Roger Younger
-  *
-  *    Version 1.0      Mar. 24, 2020
+  *   Project Team Members: Albert Perlman
   *
   ******************************************************************************
   */

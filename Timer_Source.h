@@ -4,9 +4,7 @@
   *   Founction prototypes for the Timer_Source.s source code
   *                   
   ******************************************************************************
-  *   Project Team Members: Roger Younger
-  *
-  *    Version 1.0      Mar. 26, 2020
+  *   Project Team Members: Albert Perlman
   *
   ******************************************************************************
   */

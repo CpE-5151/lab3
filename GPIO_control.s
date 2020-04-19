@@ -2,10 +2,7 @@
 ;       GPIO_control.s
 ;       GPIO Assembly Code for experiment #3
 ;
-;       Project Team Members: Roger Younger
-;
-;
-;       Version 1.0      Mar. 24, 2020
+;       Project Team Members: Albert Perlman
 ;
 ;********************************************************************************************
 
