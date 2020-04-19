@@ -271,59 +271,69 @@ TIMER2_INIT
 
 ; STEP #2
 ;***************************************************************************************
-;      void TIMER2_INTERRUPT_ENABLE(void);
+;      void TIMER2_ENABLE_CC1_INTERRUPT(void);
 ;      enable TIM2_CC1 interrupt
 ;**************************************************************************************
-  EXPORT TIMER2_INTERRUPT_ENABLE
+  EXPORT TIMER2_ENABLE_CC1_INTERRUPT
 
-TIMER2_INTERRUPT_ENABLE
+TIMER2_ENABLE_CC1_INTERRUPT
   ;2a
   PUSH {R14,R0,R1}
-
   ;2b
   LDR R0, =TIM2_BASE
-
   ;2c
   MOV R1, #0
   STR R1, [R0, #TIM_SR]   ; clear all pending interrupts
-
   ;2d
   LDR R1, [R0, #TIM_DIER]
   ORR R1, #(1<<1)         ; set TIM_DIER CC1IE bit to enable interrupt
   STR R1, [R0, #TIM_DIER]
-
   ;2e
   POP {R14,R0,R1}
-
   ;2f
   BX R14
 
 ; STEP #3
 ;***************************************************************************************
-;      void TIMER2_INTERRUPT_DISABLE(void);
+;      void TIMER2_DISABLE_CC1_INTERRUPT(void);
 ;      disable TIM2_CC1 interrupt
 ;**************************************************************************************
-  EXPORT TIMER2_INTERRUPT_DISABLE
+  EXPORT TIMER2_DISABLE_CC1_INTERRUPT
 
-TIMER2_INTERRUPT_DISABLE
+TIMER2_DISABLE_CC1_INTERRUPT
   ;3a
   PUSH {R14,R0,R1}
-
   ;3b
   LDR R0, =TIM2_BASE
-
   ;3c
   LDR R1, [R0, #TIM_DIER]
   BIC R1, #(1<<1)         ; clear TIM_DIER CC1IE bit to disable interrupt
   STR R1, [R0, #TIM_DIER]
-
   ;3d
   POP {R14,R0,R1}
-
   ;3e
   BX R14
 
+; STEP #4
+;***************************************************************************************
+;      uint32_t READ_MEASUREMENT(void);
+;      read the TIM2_CCR1 value
+;**************************************************************************************
+  EXPORT READ_MEASUREMENT
 
-	END
+READ_MEASUREMENT
+  ;4a
+  PUSH {R14,R1}
+  ;4b
+  LDR R1, =TIM2_BASE
+  ;4c
+  LDR R0, [R1, #TIM_CCR1] ; read TIM_CCR1 value
+  ;4d
+  POP {R14,R1}
+  ;4e
+  BX R14  ; return TIM_CCR1 value in R0
+
+
+  END
 		
 		
