@@ -190,6 +190,10 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
+  /* STEP #8: enable interrupt and start measurement */
+  TIMER2_ENABLE_CC1_INTERRUPT();
+  START_MEASUREMENT();
+
   uint32_t print_index;
   TIME++;
 	if(TIME==1)

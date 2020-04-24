@@ -148,7 +148,24 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32L4Rx_2048_Dual -FS08000000 -FL0200000 -FP0($$Device:STM32L4R5ZITx$CMSIS\Flash\STM32L4Rx_2048_Dual.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint/>
+      <Breakpoint>
+        <Bp>
+          <Number>0</Number>
+          <Type>0</Type>
+          <LineNumber>24</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134228174</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>.\Timer_IRQHandler.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\Exp3_example\Timer_IRQHandler.c\24</Expression>
+        </Bp>
+      </Breakpoint>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -159,6 +176,11 @@
           <count>1</count>
           <WinNumber>1</WinNumber>
           <ItemText>print_buffer_g</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>count_g</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -204,6 +226,10 @@
       <pSingCmdsp></pSingCmdsp>
       <pMultCmdsp></pMultCmdsp>
       <SystemViewers>
+        <Entry>
+          <Name>System Viewer\NVIC</Name>
+          <WinId>35901</WinId>
+        </Entry>
         <Entry>
           <Name>System Viewer\TIM2</Name>
           <WinId>35905</WinId>
