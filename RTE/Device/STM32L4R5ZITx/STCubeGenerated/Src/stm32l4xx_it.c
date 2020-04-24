@@ -206,7 +206,7 @@ void SysTick_Handler(void)
     LED_CONTROL(0);
     print_index=strlen(print_buffer_g);
 
-    /* STEP 9: print distance measurement */
+    /* STEP 9: check for valid measurement and convert to feet */
     if(count_g != 0xFFFFFFFF)
     {
       /* convert count_g to distance measurement in q8 format */
@@ -215,8 +215,8 @@ void SysTick_Handler(void)
       uint16_t feet = meas_output >> 8;
       /* extract inches value */
       uint16_t inches = ( (meas_output & 0xFF) * 100 ) / 256;
-      /* print distancem measurement */
-      sprintf(print_buffer_g, "%u.%2.2u feet\n", feet, inches);
+      /* print distance measurement */
+      sprintf(print_buffer_g, "%u.%2.2u feet\r\n", feet, inches);
     }
     else
     {
@@ -224,17 +224,19 @@ void SysTick_Handler(void)
       if(index_g>99) index_g=0;
       sprintf(print_buffer_g,"NO MEASUREMENT READ #%2.2u  \n\r",index_g);
     }
-
+  }
+  else if(TIME==1001)
+  {
+    /* STEP 10: print distance measurement to LPUART serial port */
     if (HAL_UART_Transmit_IT(&hlpuart1, (uint8_t *)print_buffer_g, (uint16_t)print_index) != HAL_OK)
     {
-      Error_Handler();
+       Error_Handler();
     }
-
-	}
-	else if(TIME>5001)
-	{
-		TIME=0;   // Reset to start cycle over
-	}
+  }
+  else if(TIME>5001)
+  {
+    TIME=0;   // Reset to start cycle over
+  }
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
