@@ -264,7 +264,8 @@ TIMER2_INIT
 	STR R1, [R0, #TIM_CCER]
 	LDR R1, [R0, #TIM_SMCR]
 	MOV R1, #((2<<4):OR:(4<<0))  ; Reset count, Trigger is TIM3 TGRO (Update) 	
-	MOV R1, #1
+	STR R1, [R0, #TIM_SMCR]
+  MOV R1, #1
 	STR R1, [R0, #TIM_CR1]
 	POP {R14}
 	BX R14
