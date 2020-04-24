@@ -91,6 +91,10 @@ int main(void)
 	TIMER4_INIT();
 	TIMER5_INIT();
 	TIMER2_INIT();
+
+  /* STEP #7: set priority and enable Timer2 interrupt in the NVIC */
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);        // enable Timer2 interrupt
+  HAL_NVIC_SetPriority(TIM2_IRQn,2,0);  // set Timer2 interrupt priority
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
