@@ -48,7 +48,6 @@
 /* USER CODE BEGIN PV */
 static uint32_t TIME;
 static uint8_t index_g;
-static uint32_t count_g;
 char print_buffer_g[50];
 /* USER CODE END PV */
 
@@ -190,27 +189,47 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   /* USER CODE BEGIN SysTick_IRQn 0 */
-  /* STEP #8: enable interrupt and start measurement */
-  TIMER2_ENABLE_CC1_INTERRUPT();
-  START_MEASUREMENT();
 
   uint32_t print_index;
   TIME++;
-	if(TIME==1)
-	{
-		 index_g++;
-		 if(index_g>99) index_g=0;
-		 LED_CONTROL(1);
-		 sprintf(print_buffer_g,"Hello #%2.2u  \n\r",index_g);
-		 print_index=strlen(print_buffer_g);
-		if (HAL_UART_Transmit_IT(&hlpuart1, (uint8_t *)print_buffer_g, (uint16_t)print_index) != HAL_OK)
+  if(TIME==1)
+  {
+    LED_CONTROL(1);
+    /* 9) reset global count value before measurement */
+    count_g = 0xFFFFFFFF;
+    /* STEP #8: enable interrupt and start measurement */
+    TIMER2_ENABLE_CC1_INTERRUPT();
+    START_MEASUREMENT();
+  }
+  else if(TIME==101)
+  {
+    LED_CONTROL(0);
+    print_index=strlen(print_buffer_g);
+
+    /* STEP 9: print distance measurement */
+    if(count_g != 0xFFFFFFFF)
+    {
+      /* convert count_g to distance measurement in q8 format */
+      uint32_t meas_output = CONVERT_MEASUREMENT(count_g);
+      /* extract feet value */
+      uint16_t feet = meas_output >> 8;
+      /* extract inches value */
+      uint16_t inches = ( (meas_output & 0xFF) * 100 ) / 256;
+      /* print distancem measurement */
+      sprintf(print_buffer_g, "%u.%2.2u feet\n", feet, inches);
+    }
+    else
+    {
+      index_g++;
+      if(index_g>99) index_g=0;
+      sprintf(print_buffer_g,"NO MEASUREMENT READ #%2.2u  \n\r",index_g);
+    }
+
+    if (HAL_UART_Transmit_IT(&hlpuart1, (uint8_t *)print_buffer_g, (uint16_t)print_index) != HAL_OK)
     {
       Error_Handler();
     }
-	}
-	else if(TIME==101)
-	{
-		LED_CONTROL(0);
+
 	}
 	else if(TIME>5001)
 	{

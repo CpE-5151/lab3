@@ -16,6 +16,9 @@
 
 #include <stdint.h>
 
+/* global variable used to store Timer2 CCR1 value */
+extern uint32_t count_g;
+
 /* assembly functions */
 void TIMER2_INIT(void);
 void TIMER3_INIT(void);
